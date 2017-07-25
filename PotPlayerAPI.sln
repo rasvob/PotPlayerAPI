@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PotPlayerApiLib", "PotPlaye
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTestConsoleApp", "ApiTestConsoleApp\ApiTestConsoleApp.csproj", "{0D25C82F-1F67-43AF-BC66-735FB43E4433}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinApiRemoteLib", "WinApiRemoteLib\WinApiRemoteLib.csproj", "{ED1FA366-8AD5-4DA3-BA87-A69A63548870}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AimpApiLib", "AimpApiLib\AimpApiLib.csproj", "{17F6A57E-1126-4042-B09E-FF1B2AE1D12F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{0D25C82F-1F67-43AF-BC66-735FB43E4433}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D25C82F-1F67-43AF-BC66-735FB43E4433}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D25C82F-1F67-43AF-BC66-735FB43E4433}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1FA366-8AD5-4DA3-BA87-A69A63548870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1FA366-8AD5-4DA3-BA87-A69A63548870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1FA366-8AD5-4DA3-BA87-A69A63548870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1FA366-8AD5-4DA3-BA87-A69A63548870}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17F6A57E-1126-4042-B09E-FF1B2AE1D12F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17F6A57E-1126-4042-B09E-FF1B2AE1D12F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17F6A57E-1126-4042-B09E-FF1B2AE1D12F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17F6A57E-1126-4042-B09E-FF1B2AE1D12F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace PotPlayerApiLib
+namespace WinApiRemoteLib
 {
-    public class PotPlayerWindow
+    public class ProcessWindow
     {
         public string ProcessName { get; set; }
         public string Title { get; set; }
         public IntPtr Handle { get; set; }
 
-        public PotPlayerWindow(Process process)
+        public ProcessWindow(Process process)
         {
             ProcessName = process.ProcessName;
             Title = process.MainWindowTitle;

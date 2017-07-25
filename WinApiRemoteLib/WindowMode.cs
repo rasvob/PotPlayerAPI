@@ -1,4 +1,4 @@
-﻿namespace PotPlayerApiLib
+﻿namespace WinApiRemoteLib
 {
     public enum WindowMode
     {

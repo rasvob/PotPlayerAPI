@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using PotPlayerApiLib;
+using WinApiRemoteLib;
 
 namespace ApiTestConsoleApp
 {
@@ -13,14 +15,18 @@ namespace ApiTestConsoleApp
     {
         static void Main(string[] args)
         {
+            IEnumerable<Process> processes = Process.GetProcesses().Where(t => t.ProcessName.StartsWith("aimp", StringComparison.CurrentCultureIgnoreCase));
+            Process process = Process.GetProcesses().FirstOrDefault(t => t.ProcessName.StartsWith("PotPlayerMini64", StringComparison.CurrentCultureIgnoreCase));
 
-            WindowFocuser focuser = new WindowFocuser();
-            IEnumerable<Process> processes = focuser.ListProcesses().Where(t => t.ProcessName.StartsWith("Sub", StringComparison.CurrentCultureIgnoreCase));
-            //Process process = focuser.ListProcesses().FirstOrDefault(t => t.ProcessName.StartsWith("PotPlayerMini64", StringComparison.CurrentCultureIgnoreCase));
-            Process process = focuser.ListProcesses().FirstOrDefault(t => t.ProcessName.StartsWith("sub", StringComparison.CurrentCultureIgnoreCase));
-
-            var remote = new PotPlayerRemote(new PotPlayerWindow(process));
+            var remote = new PotPlayerRemote(new ProcessWindow(process));
             remote.Pause();
+            Thread.Sleep(1000);
+            remote.Forward();
+            Thread.Sleep(1000);
+            remote.Forward();
+            Thread.Sleep(1000);
+            remote.Rewind();
+
             Console.ReadKey();
         }
     }

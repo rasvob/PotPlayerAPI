@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace PotPlayerApiLib
+namespace WinApiRemoteLib
 {
     public class WindowFocuser
     {

@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Security.Principal;
-using System.Threading;
 using System.Windows.Input;
 
-namespace PotPlayerApiLib
+namespace WinApiRemoteLib
 {
     public static class SendKeysInterop
     {
         private const int WmKeydown = 0x100;
         private const int WmKeyup = 0x101;
+        private const int WmSysKeydown = 0x0104;
+        private const int WmSysKeyup = 0x0105;
 
         [return: MarshalAs(UnmanagedType.Bool)]
         [DllImport("user32.dll")]
@@ -24,6 +24,16 @@ namespace PotPlayerApiLib
         public static bool ReleaseKey(IntPtr handle, Key key)
         {
             return PostMessage(handle, WmKeyup, KeyInterop.VirtualKeyFromKey(key), 0);
+        }
+
+        public static bool HoldKeyDown(IntPtr handle, Key key)
+        {
+            return PostMessage(handle, WmSysKeydown, KeyInterop.VirtualKeyFromKey(key), 0);
+        }
+
+        public static bool ReleaseKeyUp(IntPtr handle, Key key)
+        {
+            return PostMessage(handle, WmSysKeyup, KeyInterop.VirtualKeyFromKey(key), 0);
         }
 
         public static void PressKeys(IntPtr handle, IEnumerable<Key> keys)

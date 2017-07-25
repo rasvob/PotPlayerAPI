@@ -3,35 +3,45 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Input;
+using WinApiRemoteLib;
 
 namespace PotPlayerApiLib
 {
-    public class PotPlayerRemote
+    public class PotPlayerRemote: AbstractCommandRemote
     {
-        private readonly PotPlayerWindow _window;
-        private readonly WindowFocuser _focuser;
-
-        public PotPlayerRemote(PotPlayerWindow window)
+        public PotPlayerRemote(ProcessWindow window): base(window)
         {
-            _window = window;
-            _focuser = new WindowFocuser();
+
         }
 
         public void Pause()
         {
-            _focuser.FocusByHandle(_window.Handle, WindowMode.Show);
-            //SendKeysInterop.PressKey(_window.Handle, Key.Space);
-            WindowFocuser.Rect pos = _focuser.GetWindowPosition(_window.Handle);
-            //VirtualMouse.Move((pos.Left + pos.Right) / 2, (pos.Top + pos.Bottom) / 2);
-            System.Windows.Forms.Cursor.Position = new Point(2000, 500);
-            VirtualMouse.LeftClick();
-            VirtualMouse.RightClick();
-            //SendKeys.SendWait(" ");
+            Command(Key.Space);
         }
 
-        public WindowFocuser.Rect GetPos()
+        public void Fullscreen()
         {
-            return _focuser.GetWindowPosition(_window.Handle);
+            Command(Key.F);
+        }
+
+        public void NextFile()
+        {
+            Command(Key.PageDown);
+        }
+
+        public void PreviousFile()
+        {
+            Command(Key.PageUp);
+        }
+
+        public void Rewind()
+        {
+            Command(Key.Left);    
+        }
+
+        public void Forward()
+        {
+            Command(Key.Right);
         }
     }
 }

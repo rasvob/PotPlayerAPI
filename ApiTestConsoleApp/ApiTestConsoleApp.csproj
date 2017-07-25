@@ -54,6 +54,10 @@
       <Project>{02964c39-b4dd-4180-a4ad-d870f6e4ded1}</Project>
       <Name>PotPlayerApiLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WinApiRemoteLib\WinApiRemoteLib.csproj">
+      <Project>{ED1FA366-8AD5-4DA3-BA87-A69A63548870}</Project>
+      <Name>WinApiRemoteLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
