@@ -17,80 +17,82 @@
         <strong>No running instances!</strong> Please start PotPlayer first and then <a asp-controller="Pot" asp-action="Remote" class="alert-link">reload</a>.
     </div>
 }
-
-<form asp-controller="Pot" asp-action="Remote" method="post">
-    <div class="form-group">
-        <h3>Running instances</h3>
-        <div class="custom-controls-stacked">
-            @foreach (var win in Model.Windows)
-            {
-                <label class="custom-control custom-radio">
-                    <input value="@win.Handle.ToInt32()" name="radio-handle" type="radio" class="custom-control-input">
-                    <span class="custom-control-indicator"></span>
-                    <span class="custom-control-description">@win.Title - @win.Handle.ToInt32()</span>
-                </label>
-            }
+else
+{
+    <form asp-controller="Pot" asp-action="Remote" method="post" class="pot-form">
+        <div class="form-group">
+            <h3>Running instances</h3>
+            <div class="custom-controls-stacked">
+                @foreach (var win in Model.Windows)
+                {
+                    <label class="custom-control custom-radio">
+                        <input value="@win.Handle.ToInt32()" name="radio-handle" type="radio" class="custom-control-input">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">@win.Title - @win.Handle.ToInt32()</span>
+                    </label>
+                }
+            </div>
         </div>
-    </div>
     
-    <h3>Select action</h3>
-    <h4 class="hidden-sm-up">Main actions</h4>
-    <div class="row">
-        <div class="col-md-4 col-sm-12 mb-2">
-            <button class="btn btn-primary col-12" data-pot-action="Pause">Pause</button>
-        </div>
+        <h3>Select action</h3>
+        <h4 class="hidden-sm-up">Main actions</h4>
+        <div class="row">
+            <div class="col-md-4 col-sm-12 mb-2">
+                <button class="btn btn-primary col-12" data-pot-action="Pause">Pause</button>
+            </div>
         
-        <div class="col-md-4 col-sm-12 mb-2">
-            <button class="btn btn-success col-12" data-pot-action="Fullscreen">Fullscreen</button>
-        </div>
+            <div class="col-md-4 col-sm-12 mb-2">
+                <button class="btn btn-success col-12" data-pot-action="Fullscreen">Fullscreen</button>
+            </div>
         
-        <div class="col-md-4 col-sm-12 mb-2">
-            <button class="btn btn-danger col-12" data-pot-action="Mute">Mute</button>
+            <div class="col-md-4 col-sm-12 mb-2">
+                <button class="btn btn-danger col-12" data-pot-action="Mute">Mute</button>
+            </div>
         </div>
-    </div>
     
-    <h4 class="hidden-sm-up">Volume</h4>
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-sm-12 mb-2">
-            <button class="btn btn-danger col-12" data-pot-action="VolumeDown">Volume Down</button>
+        <h4 class="hidden-sm-up">Volume</h4>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-sm-12 mb-2">
+                <button class="btn btn-danger col-12" data-pot-action="VolumeDown">Volume Down</button>
+            </div>
+
+            <div class="col-md-6 col-sm-12 mb-2">
+                <button class="btn btn-success col-12" data-pot-action="VolumeUp">Volume Up</button>
+            </div>
+        </div>
+    
+        <h4 class="hidden-sm-up">Playlist</h4>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-sm-12 mb-2">
+                <button class="btn btn-danger col-12" data-pot-action="PreviousFile">Previous File</button>
+            </div>
+
+            <div class="col-md-6 col-sm-12 mb-2">
+                <button class="btn btn-success col-12" data-pot-action="NextFile">Next File</button>
+            </div>
+        </div>
+    
+        <h4 class="hidden-sm-up">Current file</h4>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-sm-12 mb-2">
+                <button class="btn btn-danger col-12" data-pot-action="Rewind">Rewind</button>
+            </div>
+
+            <div class="col-md-6 col-sm-12 mb-2">
+                <button class="btn btn-success col-12" data-pot-action="Rewind">Rewind</button>
+            </div>
         </div>
 
-        <div class="col-md-6 col-sm-12 mb-2">
-            <button class="btn btn-success col-12" data-pot-action="VolumeUp">Volume Up</button>
-        </div>
-    </div>
+        <input type="hidden" asp-for="PotRemotePost.PotPlayerAction" />
+        <input type="hidden" asp-for="PotRemotePost.Handle"  />
     
-    <h4 class="hidden-sm-up">Playlist</h4>
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-sm-12 mb-2">
-            <button class="btn btn-danger col-12" data-pot-action="PreviousFile">Previous File</button>
-        </div>
-
-        <div class="col-md-6 col-sm-12 mb-2">
-            <button class="btn btn-success col-12" data-pot-action="NextFile">Next File</button>
-        </div>
-    </div>
-    
-    <h4 class="hidden-sm-up">Current file</h4>
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-sm-12 mb-2">
-            <button class="btn btn-danger col-12" data-pot-action="Rewind">Rewind</button>
-        </div>
-
-        <div class="col-md-6 col-sm-12 mb-2">
-            <button class="btn btn-success col-12" data-pot-action="Rewind">Rewind</button>
-        </div>
-    </div>
-
-    <input type="hidden" asp-for="PotRemotePost.PotPlayerAction" />
-    <input type="hidden" asp-for="PotRemotePost.Handle" />
-    
-</form>
+    </form>
+}
 
 @if (TempData.ContainsKey("Error"))
 {
     <div class="alert alert-danger" role="alert">
-        <strong>Error!</strong> Can't execute selected command...
+        <strong>Error!</strong> Can't execute selected command.
     </div>
 }
 

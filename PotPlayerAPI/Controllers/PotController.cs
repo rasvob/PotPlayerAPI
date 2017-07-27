@@ -32,12 +32,14 @@ namespace PotPlayerAPI.Controllers
             return View(vm);
         }
 
+        //TODO: Add JS to handle POSTs
         [HttpPost]
         public IActionResult Remote(PotRemoteViewModel viewModel)
         {
             if (!ModelState.IsValid)
             {
                 TempData["Error"] = true;
+                return RedirectToAction("Remote");
             }
 
             try
@@ -48,11 +50,11 @@ namespace PotPlayerAPI.Controllers
                 });
                 remote.DoAction(viewModel.PotRemotePost.PotPlayerAction);
                 _logger.LogInformation($"Performed {viewModel.PotRemotePost.PotPlayerAction} action");
-                return Ok();
             }
             catch (Exception exception) when (exception is ArgumentNullException || exception is ArgumentOutOfRangeException)
             {
                 _logger.LogError(exception.Message);
+                TempData["Error"] = true;
             }
 
             return RedirectToAction("Remote");
