@@ -4,37 +4,47 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PotPlayerAPI</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    <title>HomeAPI</title>
 
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/css/font-awesome.css"/>
+
+    <link rel="stylesheet" type="text/css" href="~/css/site.css"/>
 </head>
 <body>
 
-<div class="body-content">
-    
+<div>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-primary">
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
         <div class="container">
-            <a class="navbar-brand" asp-controller="Home" asp-action="Index">PotPlayerAPI</a>
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">HomeAPI</a>
 
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mr-auto mt-2 mt-md-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link" asp-controller="Pot" asp-action="Remote">PotPlayer Remote</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="Aimp" asp-action="Remote">AiMP Remote</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container body-content">
         @RenderBody()
     </div>
-    <hr/>
-    <footer>
-        <p>&copy; 2017 - PotPlayerAPI</p>
+    
+
+    <footer class="container">
+        <hr />
+        <div class="row align-items-center no-gutters">
+            &copy; 2017 - HomeAPI - Created by Radek Svoboda <a class="btn btn-sm btn-outline-info margin-left-10" href="mailto:rasvob14@gmail.com">Contact me</a>
+        </div>
     </footer>
 </div>
 

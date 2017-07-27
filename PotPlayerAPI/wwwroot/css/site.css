@@ -1,5 +1,35 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿/*Margins*/
+.margin-left-10 {
+    margin-left: 10px;
 }
+
+.margin-right-10 {
+    margin-left: 10px;
+}
+
+.margin-top-10 {
+    margin-top: 10px;
+}
+
+.margin-bottom-10 {
+    margin-top: 10px;
+}
+
+.margin-left-5 {
+    margin-left: 5px;
+}
+
+.margin-right-5 {
+    margin-left: 5px;
+}
+
+.body-content {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.hand {
+    cursor: pointer;
+}
+
 

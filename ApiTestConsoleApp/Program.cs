@@ -15,7 +15,7 @@ namespace ApiTestConsoleApp
     {
         static void Main(string[] args)
         {
-            IEnumerable<Process> processes = Process.GetProcesses().Where(t => t.ProcessName.StartsWith("aimp", StringComparison.CurrentCultureIgnoreCase));
+            IEnumerable<Process> processes = Process.GetProcesses().Where(t => t.ProcessName.ToLower().Contains("ai"));
             Process process = Process.GetProcesses().FirstOrDefault(t => t.ProcessName.StartsWith("PotPlayerMini64", StringComparison.CurrentCultureIgnoreCase));
 
             var remote = new PotPlayerRemote(new ProcessWindow(process));

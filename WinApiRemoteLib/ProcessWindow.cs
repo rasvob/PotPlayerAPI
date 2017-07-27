@@ -9,6 +9,11 @@ namespace WinApiRemoteLib
         public string Title { get; set; }
         public IntPtr Handle { get; set; }
 
+        public ProcessWindow()
+        {
+            
+        }
+
         public ProcessWindow(Process process)
         {
             ProcessName = process.ProcessName;
