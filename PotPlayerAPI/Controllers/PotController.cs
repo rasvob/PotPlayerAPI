@@ -26,7 +26,8 @@ namespace PotPlayerAPI.Controllers
         {
             var vm = new PotRemoteViewModel
             {
-                Windows = PotPlayerRemote.GetProcessWindowsForApp()
+                Windows = PotPlayerRemote.GetProcessWindowsForApp(),
+                PotRemotePost = new PotRemotePostViewModel()
             };
             
             return View(vm);
@@ -34,8 +35,10 @@ namespace PotPlayerAPI.Controllers
 
         //TODO: Add JS to handle POSTs
         [HttpPost]
-        public IActionResult Remote(PotRemoteViewModel viewModel)
+        public IActionResult Remote([FromForm]PotRemotePostViewModel viewModel)
         {
+            TempData["Error"] = false;
+
             if (!ModelState.IsValid)
             {
                 TempData["Error"] = true;
@@ -46,17 +49,18 @@ namespace PotPlayerAPI.Controllers
             {
                 var remote = new PotPlayerRemote(new ProcessWindow()
                 {
-                    Handle = (IntPtr)viewModel.PotRemotePost.Handle
+                    Handle = (IntPtr)viewModel.Handle
                 });
-                remote.DoAction(viewModel.PotRemotePost.PotPlayerAction);
-                _logger.LogInformation($"Performed {viewModel.PotRemotePost.PotPlayerAction} action");
+                remote.DoAction(viewModel.PotPlayerAction);
+                _logger.LogInformation($"Performed {viewModel.PotPlayerAction} action");
             }
-            catch (Exception exception) when (exception is ArgumentNullException || exception is ArgumentOutOfRangeException)
+            catch (Exception exception) when (exception is ArgumentNullException || exception is ArgumentOutOfRangeException || exception is NullReferenceException)
             {
                 _logger.LogError(exception.Message);
                 TempData["Error"] = true;
             }
 
+            TempData["SelectedHandle"] = viewModel.Handle;
             return RedirectToAction("Remote");
         }
 
