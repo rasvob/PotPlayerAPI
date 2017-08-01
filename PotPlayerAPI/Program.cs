@@ -13,6 +13,7 @@ namespace PotPlayerAPI
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
+                //.UseUrls("http://192.168.2.7:56111")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
