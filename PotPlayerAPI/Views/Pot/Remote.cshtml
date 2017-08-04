@@ -14,7 +14,7 @@
 @if (!Model.Windows.Any())
 {
     <div class="alert alert-danger" role="alert">
-        <strong>No running instances!</strong> Please start PotPlayer first and then <a asp-controller="Pot" asp-action="Remote" class="alert-link">reload</a>.
+        <strong>No running instances!</strong> Please start PotPlayer first and then <a asp-controller="Pot" asp-action="Remote" class="alert-link">reload</a> or <a class="alert-link" asp-controller="Pot" asp-action="">run new instance</a>.
     </div>
 }
 else

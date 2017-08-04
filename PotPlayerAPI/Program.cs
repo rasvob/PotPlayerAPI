@@ -23,38 +23,6 @@ namespace PotPlayerAPI
                 .Build();
 
             host.Run();
-
-            //bool isService = !(Debugger.IsAttached || args.Contains("--console"));
-
-            //foreach (string s in args)
-            //{
-            //    Console.WriteLine(s);
-            //}
-
-            //var pathToContentRoot = Directory.GetCurrentDirectory();
-            //if (isService)
-            //{
-            //    var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
-            //    pathToContentRoot = Path.GetDirectoryName(pathToExe);
-            //}
-
-            //var host = new WebHostBuilder()
-            //    .UseKestrel()
-            //    .UseUrls("http://localhost:56111;http://192.168.2.7:56111")
-            //    .UseContentRoot(pathToContentRoot)
-            //    .UseIISIntegration()
-            //    .UseStartup<Startup>()
-            //    .UseApplicationInsights()
-            //    .Build();
-
-            //if (isService)
-            //{
-            //    host.RunAsService();
-            //}
-            //else
-            //{
-            //    host.Run();
-            //}
         }
     }
 }
