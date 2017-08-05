@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.ServiceModel;
+using System.ServiceModel.Description;
 using System.Windows.Forms;
 using PotPlayerApiLib;
 using PotPlayerApiLib.Service;
@@ -27,7 +28,10 @@ namespace PotPlayerApiTrayApp
         {
             _serviceHost = new ServiceHost(typeof(PotPlayerApiService));
             NetNamedPipeBinding binding = new NetNamedPipeBinding(NetNamedPipeSecurityMode.None);
+            WebHttpBinding webHttpBinding = new WebHttpBinding() {CrossDomainScriptAccessEnabled = true};
             _serviceHost.AddServiceEndpoint(typeof(IPotPlayerApiService), binding, _serviceAdressPipe);
+            ServiceEndpoint endpoint = _serviceHost.AddServiceEndpoint(typeof(IPotPlayerApiService), webHttpBinding, "http://192.168.2.7:56112/potservice/");
+            endpoint.Behaviors.Add(new WebHttpBehavior());
             _serviceHost.Open();
             Debug.WriteLine(_serviceHost.State);
         }

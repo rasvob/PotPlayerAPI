@@ -8,10 +8,14 @@
     ViewData["Title"] = "PotPlayer remote";
 }
 
-<h2>PotPlayer Remote</h2>
-<hr />
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <h2>PotPlayer Remote</h2>
+        <a class="btn btn-success btn-sm ml-2" asp-controller="Pot" asp-action="Remote"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+    </div>
+</div>
 
-@*TODO: Add refresh button*@ 
+<hr />
 
 @if (!Model.Windows.Any())
 {
@@ -78,6 +82,17 @@ else
                     <button class="btn btn-success col-12" data-pot-action="VolumeUp">Volume Up</button>
                 </div>
             </div>
+            
+            <h4 class="hidden-sm-down">Current file</h4>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-sm-12 mb-2">
+                    <button class="btn btn-danger col-12" data-pot-action="Rewind">Rewind</button>
+                </div>
+
+                <div class="col-md-6 col-sm-12 mb-2">
+                    <button class="btn btn-success col-12" data-pot-action="Forward">Forward</button>
+                </div>
+            </div>
 
             <h4 class="hidden-sm-down">Playlist</h4>
             <div class="row justify-content-center">
@@ -89,29 +104,11 @@ else
                     <button class="btn btn-success col-12" data-pot-action="NextFile">Next File</button>
                 </div>
             </div>
-
-            <h4 class="hidden-sm-down">Current file</h4>
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-sm-12 mb-2">
-                    <button class="btn btn-danger col-12" data-pot-action="Rewind">Rewind</button>
-                </div>
-
-                <div class="col-md-6 col-sm-12 mb-2">
-                    <button class="btn btn-success col-12" data-pot-action="Forward">Forward</button>
-                </div>
-            </div>
         </div>
         
         <input type="hidden" asp-for="PotRemotePost.PotPlayerAction" name="PotPlayerAction" />
         <input type="hidden" asp-for="PotRemotePost.Handle" name="Handle" />
     </form>
-}
-
-@if (TempData.ContainsKey("ServiceNotRunning") && (bool)TempData["ServiceNotRunning"])
-{
-    <div class="alert alert-danger" role="alert">
-        <strong>Error!</strong> Remote service is not running.
-    </div>
 }
 
 @if (TempData.ContainsKey("Error") && (bool)TempData["Error"])
