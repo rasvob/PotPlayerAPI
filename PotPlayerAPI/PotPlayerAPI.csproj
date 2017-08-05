@@ -8,6 +8,7 @@
   <ItemGroup>
     <Content Include="wwwroot\css\font-awesome.css" />
     <Content Include="wwwroot\css\font-awesome.min.css" />
+    <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\fonts\fontawesome-webfont.eot" />
     <Content Include="wwwroot\fonts\fontawesome-webfont.svg" />
     <Content Include="wwwroot\fonts\fontawesome-webfont.ttf" />
@@ -38,6 +39,9 @@
   <ItemGroup>
     <ProjectReference Include="..\AimpApiLib\AimpApiLib.csproj" />
     <ProjectReference Include="..\PotPlayerApiLib\PotPlayerApiLib.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">

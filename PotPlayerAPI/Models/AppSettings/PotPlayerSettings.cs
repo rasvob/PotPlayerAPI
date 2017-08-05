@@ -2,6 +2,6 @@
 {
     public class PotPlayerSettings
     {
-        public string ExeLocation { get; set; }
+        public string ServiceEndPointAddess { get; set; }
     }
 }

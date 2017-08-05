@@ -11,10 +11,12 @@
 <h2>PotPlayer Remote</h2>
 <hr />
 
+@*TODO: Add refresh button*@ 
+
 @if (!Model.Windows.Any())
 {
     <div class="alert alert-danger" role="alert">
-        <strong>No running instances!</strong> Please start PotPlayer first and then <a asp-controller="Pot" asp-action="Remote" class="alert-link">reload</a> or <a class="alert-link" asp-controller="Pot" asp-action="">run new instance</a>.
+        <strong>No running instances!</strong> Please start PotPlayer first and then <a asp-controller="Pot" asp-action="Remote" class="alert-link">reload</a> or <a class="alert-link" asp-controller="Pot" asp-action="StartPlayer">run new instance</a>.
     </div>
 }
 else
@@ -103,6 +105,13 @@ else
         <input type="hidden" asp-for="PotRemotePost.PotPlayerAction" name="PotPlayerAction" />
         <input type="hidden" asp-for="PotRemotePost.Handle" name="Handle" />
     </form>
+}
+
+@if (TempData.ContainsKey("ServiceNotRunning") && (bool)TempData["ServiceNotRunning"])
+{
+    <div class="alert alert-danger" role="alert">
+        <strong>Error!</strong> Remote service is not running.
+    </div>
 }
 
 @if (TempData.ContainsKey("Error") && (bool)TempData["Error"])
