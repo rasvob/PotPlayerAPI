@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using PotPlayerApiLib;
+using PotPlayerAPI.Models.AppSettings;
 using PotPlayerAPI.ViewModels.Pot;
 using WinApiRemoteLib;
 
 namespace PotPlayerAPI.Controllers
 {
-    [Route("[controller]/[action]")]
+    //[Route("[controller]/[action]")]
     public class PotController: Controller
     {
         private readonly ILogger<PotController> _logger;
-        public PotController(ILogger<PotController> logger)
+        private readonly IOptions<PotPlayerSettings> _options;
+
+        public PotController(ILogger<PotController> logger, IOptions<PotPlayerSettings> options)
         {
             _logger = logger;
+            _options = options;
         }
 
         public IActionResult Remote()
@@ -28,7 +34,6 @@ namespace PotPlayerAPI.Controllers
             return View(vm);
         }
 
-        //TODO: Add JS to handle POSTs
         [HttpPost]
         public IActionResult Remote([FromForm]PotRemotePostViewModel viewModel)
         {
@@ -66,28 +71,39 @@ namespace PotPlayerAPI.Controllers
             return Json(PotPlayerRemote.GetProcessWindowsForApp());
         }
 
-        [HttpPost("{potAction}")]
-        public IActionResult Command(PotPlayerAction potAction, [FromBody] ProcessWindow window)
+        [HttpPost]
+        public IActionResult AjaxRemote([FromBody]PotRemotePostViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            //if (PotPlayerRemote.GetProcessWindowsForApp().All(t => t.Handle != (IntPtr) viewModel.Handle))
+            //{
+            //    return NotFound();
+            //}
+
             try
             {
-                var remote = new PotPlayerRemote(window);
-                remote.DoAction(potAction);
-                return Ok();
+                var remote = new PotPlayerRemote(new ProcessWindow() { Handle = (IntPtr)viewModel.Handle });
+                remote.DoAction(viewModel.PotPlayerAction);
+                _logger.LogInformation($"Performed {viewModel.PotPlayerAction} action on {viewModel.Handle}");
             }
             catch (Exception exception)
             {
                 _logger.LogError(exception.Message);
+                return BadRequest();
             }
 
-            return BadRequest();
+            return Ok();
         }
 
         public IActionResult StartPlayer()
         {
             try
             {
-                Process.Start(@"C:\Program Files\DAUM\PotPlayer\PotPlayerMini64.exe");
+                Process.Start(_options.Value.ExeLocation);
             }
             catch (Exception exception)
             {

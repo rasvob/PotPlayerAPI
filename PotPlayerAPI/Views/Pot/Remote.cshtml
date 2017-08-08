@@ -111,13 +111,14 @@ else
     </form>
 }
 
-@if (TempData.ContainsKey("Error") && (bool)TempData["Error"])
-{
-    <div class="alert alert-danger" role="alert">
-        <strong>Error!</strong> Can't execute selected command.
-    </div>
-}
-
+<div id="error-container">
+    @if (TempData.ContainsKey("Error") && (bool)TempData["Error"])
+    {
+        <div class="alert alert-danger" role="alert">
+            <strong>Error!</strong> Can't execute selected command.
+        </div>
+    }
+</div>
 
 
 @section Scripts

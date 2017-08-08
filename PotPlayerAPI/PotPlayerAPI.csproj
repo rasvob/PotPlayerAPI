@@ -38,7 +38,6 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AimpApiLib\AimpApiLib.csproj" />
     <ProjectReference Include="..\PotPlayerApiLib\PotPlayerApiLib.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="hosting.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/favicon.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

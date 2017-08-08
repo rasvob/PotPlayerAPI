@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using PotPlayerAPI.Models.AppSettings;
 
 namespace PotPlayerAPI
 {
     public class Startup
     {
+        //TODO: Add appsettings vars
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -25,6 +27,7 @@ namespace PotPlayerAPI
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.Configure<PotPlayerSettings>(Configuration.GetSection("PotPlayerSettings"));
             services.AddMvc();
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
         }
@@ -51,7 +54,7 @@ namespace PotPlayerAPI
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Pot}/{action=Remote}/{id?}");
             });
         }
     }

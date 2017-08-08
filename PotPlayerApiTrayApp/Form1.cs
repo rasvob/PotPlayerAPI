@@ -14,13 +14,15 @@ namespace PotPlayerApiTrayApp
     {
         private ServiceHost _serviceHost;
         private static readonly string _serviceAdressPipe = "net.pipe://localhost/potwcf";
+        private static readonly string _httpAdress = "http://192.168.2.7:56112/potservice/";
 
         public Form1()
         {
             InitializeComponent();
-            WindowState = FormWindowState.Minimized;
+
             BuildNotifyIconMenu();
-            Hide();
+            WindowState = FormWindowState.Minimized;
+
             StartService();
         }
 
@@ -30,9 +32,12 @@ namespace PotPlayerApiTrayApp
             NetNamedPipeBinding binding = new NetNamedPipeBinding(NetNamedPipeSecurityMode.None);
             WebHttpBinding webHttpBinding = new WebHttpBinding() {CrossDomainScriptAccessEnabled = true};
             _serviceHost.AddServiceEndpoint(typeof(IPotPlayerApiService), binding, _serviceAdressPipe);
-            ServiceEndpoint endpoint = _serviceHost.AddServiceEndpoint(typeof(IPotPlayerApiService), webHttpBinding, "http://192.168.2.7:56112/potservice/");
+            EventLog.WriteEntry("PotRemote", "Pipe binded", EventLogEntryType.Information);
+            ServiceEndpoint endpoint = _serviceHost.AddServiceEndpoint(typeof(IPotPlayerApiService), webHttpBinding, _httpAdress);
             endpoint.Behaviors.Add(new WebHttpBehavior());
+            EventLog.WriteEntry("PotRemote", "Adress binded", EventLogEntryType.Information);
             _serviceHost.Open();
+            EventLog.WriteEntry("PotRemote", "_serviceHost.State", EventLogEntryType.Information);
             Debug.WriteLine(_serviceHost.State);
         }
 
@@ -47,8 +52,14 @@ namespace PotPlayerApiTrayApp
             {
                 new MenuItem("Restart service", OnClickRestartServiceTray),
                 new MenuItem("Show state", OnClickGetStateTray),
-                new MenuItem("Exit", (sender, args) => Application.Exit()),
+                new MenuItem("Exit", OnClickExitTray)
             });
+        }
+
+        private void OnClickExitTray(object sender, EventArgs eventArgs)
+        {
+            StopService();
+            Application.Exit();
         }
 
         private void OnClickGetStateTray(object o, EventArgs eventArgs)
@@ -69,17 +80,13 @@ namespace PotPlayerApiTrayApp
             ShowState();
         }
 
-        private void TestButton_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void Form1_Resize(object sender, EventArgs e)
         {
             if (WindowState == FormWindowState.Minimized)
             {
                 Hide();
                 NotifyIcon.Visible = true;
+                
             }
         }
 
@@ -90,6 +97,11 @@ namespace PotPlayerApiTrayApp
                 e.Cancel = true;
                 WindowState = FormWindowState.Minimized;
             }
+        }
+
+        protected override void SetVisibleCore(bool value)
+        {
+            base.SetVisibleCore(false);
         }
     }
 }
