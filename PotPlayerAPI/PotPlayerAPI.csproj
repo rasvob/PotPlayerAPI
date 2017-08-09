@@ -36,6 +36,7 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FileLister\FileLister.csproj" />
     <ProjectReference Include="..\PotPlayerApiLib\PotPlayerApiLib.csproj" />
     <ProjectReference Include="..\WinApiRemoteLib\WinApiRemoteLib.csproj" />
   </ItemGroup>

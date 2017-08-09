@@ -11,11 +11,11 @@ using WinApiRemoteLib;
 
 namespace PotPlayerApiLib
 {
-    public class PotPlayerRemote: CommandRemoteBase
+    public class PotPlayerRemote : CommandRemoteBase
     {
         public static readonly string AppName = "PotPlayerMini64";
 
-        public PotPlayerRemote(ProcessWindow window): base(window)
+        public PotPlayerRemote(ProcessWindow window) : base(window)
         {
 
         }
@@ -42,7 +42,7 @@ namespace PotPlayerApiLib
 
         public void Rewind()
         {
-            Command(Key.Left);    
+            Command(Key.Left);
         }
 
         public void Forward()
@@ -67,8 +67,17 @@ namespace PotPlayerApiLib
 
         public static ProcessWindow GetProcessWindowForApp()
         {
-            Process process = Process.GetProcesses().FirstOrDefault(t => t.ProcessName.Equals(AppName, StringComparison.CurrentCultureIgnoreCase)) ?? throw new ArgumentNullException();
+            Process process =
+                Process.GetProcesses()
+                    .FirstOrDefault(t => t.ProcessName.Equals(AppName, StringComparison.CurrentCultureIgnoreCase)) ??
+                throw new ArgumentNullException();
             return new ProcessWindow(process);
+        }
+
+        public static void PlayVideo(string potPlayerExeLocation, string videoPath)
+        {
+            ProcessStartInfo info = new ProcessStartInfo(potPlayerExeLocation, videoPath);
+            Process.Start(info);
         }
 
         public static IEnumerable<ProcessWindow> GetProcessWindowsForApp()

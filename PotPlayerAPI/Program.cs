@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.WindowsServices;
 using Microsoft.Extensions.Configuration;
 
 namespace PotPlayerAPI
@@ -22,7 +16,6 @@ namespace PotPlayerAPI
             var host = new WebHostBuilder()
                 .UseKestrel()
                 .UseConfiguration(config)
-                //.UseUrls("http://localhost:56111;http://192.168.2.7:56111")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()

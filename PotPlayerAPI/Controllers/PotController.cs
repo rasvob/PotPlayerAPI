@@ -79,11 +79,6 @@ namespace PotPlayerAPI.Controllers
                 return BadRequest();
             }
 
-            //if (PotPlayerRemote.GetProcessWindowsForApp().All(t => t.Handle != (IntPtr) viewModel.Handle))
-            //{
-            //    return NotFound();
-            //}
-
             try
             {
                 var remote = new PotPlayerRemote(new ProcessWindow() { Handle = (IntPtr)viewModel.Handle });
@@ -112,5 +107,8 @@ namespace PotPlayerAPI.Controllers
             }
             return RedirectToAction("Remote");
         }
+        
+        
+        
     }
 }
