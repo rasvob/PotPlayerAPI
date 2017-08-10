@@ -1,0 +1,36 @@
+@using PotPlayerAPI.ViewModels.VideoFiles
+@model IEnumerable<PotPlayerAPI.ViewModels.VideoFiles.VideoViewModel>
+
+<h3>@ViewBag.TableTitle</h3>
+<table class="table table-striped">
+<thead class="thead-inverse">
+    <tr>
+        <th>Title</th>
+        <th class="hidden-md-down">Subtitles</th>
+        <th>Action</th>
+    </tr>
+</thead>
+
+<tbody>
+    @foreach (VideoViewModel movie in Model)
+    {
+        <tr>
+            <td><a asp-controller="VideoFiles" asp-action="PlayVideo" asp-route-videoPath="@movie.FullPath">@movie.Name</a></td>
+            <td class="hidden-md-down">
+                @if (movie.HasSubtitles)
+                {
+                    <i class="fa fa-check text-success" aria-hidden="true"></i>
+                }
+                else
+                {
+                    <i class="fa fa-times text-danger" aria-hidden="true"></i>
+                }
+            </td>
+            <td>
+                <a class="btn btn-sm btn-primary" asp-controller="VideoFiles" asp-action="PlayVideo" asp-route-videoPath="@movie.FullPath">Play</a>
+            </td>
+        </tr>
+    }
+</tbody>
+</table>
+

@@ -27,12 +27,19 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.1" />
+
   </ItemGroup>
+
+  <ItemGroup>
+   <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
+  </ItemGroup> 
+
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BusinessLogic\" />
+    <Folder Include="Views\VideoFiles\Components\VideoTable\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,1 +1,6 @@
-﻿<h2>Video files</h2>
+﻿@using PotPlayerAPI.ViewModels.VideoFiles
+@model PotPlayerAPI.ViewModels.VideoFiles.VideoFilesTableViewModel
+
+<h2>Video files</h2>
+@await Component.InvokeAsync("VideoTable", new { videoFiles = Model.Movies, tableTitle = "Movies" })
+@await Component.InvokeAsync("VideoTable", new { videoFiles = Model.TvShows, tableTitle = "Tv Shows" })

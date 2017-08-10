@@ -1,22 +1,48 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace FileLister
 {
     public class FileLister
     {
-        public string Directory { get; set; }
         public bool IncludeSubDirectories { get; set; }
 
-        public FileLister(string directory, bool includeSubDirectories)
+        public FileLister(bool includeSubDirectories = true)
         {
-            Directory = directory;
             IncludeSubDirectories = includeSubDirectories;
         }
 
-        public IEnumerable<FileInfo> ListFiles(string[] excludeExtintions)
+        public IEnumerable<FileInfo> ListFiles(string dir, string[] excludeExtintions)
         {
-            return null;
+            return ListFiles(dir).Where(t => excludeExtintions.Any(s => !t.Extension.Equals(s)));
+        }
+
+        public IEnumerable<FileInfo> ListFiles(string dir)
+        {
+            if (!IncludeSubDirectories)
+            {
+                return MapFilesToFileInfo(dir);
+            }
+
+            var queue = new Queue<string>();
+            var res = new List<FileInfo>();
+
+            queue.Enqueue(dir);
+
+            while (queue.Any())
+            {
+                string itemDequeue = queue.Dequeue();
+                res.AddRange(MapFilesToFileInfo(itemDequeue));
+                Directory.GetDirectories(itemDequeue).ToList().ForEach(t => queue.Enqueue(t));
+            }
+
+            return res;
+        }
+
+        private IEnumerable<FileInfo> MapFilesToFileInfo(string dir)
+        {
+            return Directory.GetFiles(dir).Select(t => new FileInfo(t));
         }
     }
 }
