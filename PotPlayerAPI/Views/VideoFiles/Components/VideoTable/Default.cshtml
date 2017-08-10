@@ -3,15 +3,35 @@
 
 <h3>@ViewBag.TableTitle</h3>
 <table class="table table-striped">
-<thead class="thead-inverse">
+<thead class="thead-default">
     <tr>
-        <th>Title</th>
-        <th class="hidden-md-down">Subtitles</th>
-        <th>Action</th>
+        <th><a asp-controller="VideoFiles" asp-action="Index" asp-route-sortParamMovie="@ViewBag.Mov1" asp-route-sortParamTvShows="@ViewBag.Tv1">
+            Title
+            @if (ViewBag.CurrentSortAlt == "name")
+            {
+                <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+            }
+            else if (ViewBag.CurrentSortAlt == "name_desc")
+            {
+                <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+            }
+        </a></th>
+        <th class="hidden-md-down"><a asp-controller="VideoFiles" asp-action="Index" asp-route-sortParamMovie="@ViewBag.Mov2" asp-route-sortParamTvShows="@ViewBag.Tv2">
+            Subtitles
+            @if (ViewBag.CurrentSortAlt == "subtitles")
+            {
+                <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+            }
+            else if (ViewBag.CurrentSortAlt == "subtitles_desc")
+            {
+                <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+            }
+        </a></th>
+        <th></th>
     </tr>
 </thead>
 
-<tbody>
+    <tbody>
     @foreach (VideoViewModel movie in Model)
     {
         <tr>
@@ -31,6 +51,6 @@
             </td>
         </tr>
     }
-</tbody>
+    </tbody>
 </table>
 

@@ -1,6 +1,33 @@
 ﻿@using PotPlayerAPI.ViewModels.VideoFiles
 @model PotPlayerAPI.ViewModels.VideoFiles.VideoFilesTableViewModel
 
+
 <h2>Video files</h2>
-@await Component.InvokeAsync("VideoTable", new { videoFiles = Model.Movies, tableTitle = "Movies" })
-@await Component.InvokeAsync("VideoTable", new { videoFiles = Model.TvShows, tableTitle = "Tv Shows" })
+<hr />
+@await Component.InvokeAsync("VideoTable", new {
+    videoFiles = Model.Movies,
+    tableTitle = "Movies",
+    nameSortParam = ViewBag.NameSortParamMovie,
+    subtitlesSortParam = ViewBag.SubtitlesSortParamMovie,
+    currentSortParam = ViewBag.CurrentSortTvShows,
+    sortBy = "movie",
+    currentSortAlt = ViewBag.CurrentSortMovie
+})
+
+@await Component.InvokeAsync("VideoTable", new {
+    videoFiles = Model.TvShows,
+    tableTitle = "Tv Shows",
+    nameSortParam = ViewBag.NameSortParamTvShows,
+    subtitlesSortParam = ViewBag.SubtitlesSortParamTvShows,
+    currentSortParam = ViewBag.CurrentSortMovie,
+    sortBy = "tv",
+    currentSortAlt = ViewBag.CurrentSortTvShows
+})
+
+
+
+
+
+
+
+

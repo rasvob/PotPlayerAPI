@@ -23,8 +23,25 @@ namespace PotPlayerAPI.Controllers
             _options = options;
         }
         
-        public IActionResult Index()
+        public IActionResult Index(string sortParamMovie, string sortParamTvShows)
         {
+            IEnumerable<VideoViewModel> OrderCollection(IEnumerable<VideoViewModel> models, string sortOrder)
+            {
+                switch (sortOrder)
+                {
+                    case "name":
+                        return models.OrderBy(t => t.Name);
+                    case "name_desc":
+                        return models.OrderByDescending(t => t.Name);
+                    case "subtitles":
+                        return models.OrderBy(t => t.HasSubtitles);
+                    case "subtitles_desc":
+                        return models.OrderByDescending(t => t.HasSubtitles);
+                    default:
+                        return models;
+                }
+            }
+
             var lister = new FileLister.FileLister();
             IEnumerable<FileInfo> movies = lister.ListFiles(_options.Value.MoviesLocation);
             IEnumerable<FileInfo> tvSeries = lister.ListFiles(_options.Value.TvSeriesLocation);
@@ -35,8 +52,25 @@ namespace PotPlayerAPI.Controllers
             var moviesVm = groupByMovies.Select(t => new VideoViewModel(t)).Where(t => t.FullPath != null);
             var tvSeriesVm = groupByTvSeries.Select(t => new VideoViewModel(t)).Where(t => t.FullPath != null);
 
-            VideoFilesTableViewModel viewModel = new VideoFilesTableViewModel() {Movies = moviesVm, TvShows = tvSeriesVm};
+            if (string.IsNullOrEmpty(sortParamMovie))
+            {
+                sortParamMovie = "name";
+            }
 
+            if (string.IsNullOrEmpty(sortParamTvShows))
+            {
+                sortParamTvShows = "name";
+            }
+
+            ViewBag.NameSortParamMovie = sortParamMovie == "name" ? "name_desc" : "name";
+            ViewBag.SubtitlesSortParamMovie = sortParamMovie == "subtitles" ? "subtitles_desc" : "subtitles";
+            ViewBag.CurrentSortMovie = sortParamMovie;
+
+            ViewBag.NameSortParamTvShows = sortParamTvShows == "name" ? "name_desc" : "name";
+            ViewBag.SubtitlesSortParamTvShows = sortParamTvShows == "subtitles" ? "subtitles_desc" : "subtitles";
+            ViewBag.CurrentSortTvShows = sortParamTvShows;
+
+            VideoFilesTableViewModel viewModel = new VideoFilesTableViewModel {Movies = OrderCollection(moviesVm, sortParamMovie), TvShows = OrderCollection(tvSeriesVm, sortParamTvShows) };
             return View(viewModel);
         }
 
