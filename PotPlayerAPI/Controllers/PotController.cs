@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -94,11 +95,11 @@ namespace PotPlayerAPI.Controllers
             return Ok();
         }
 
-        public IActionResult StartPlayer()
+        public async Task<IActionResult> StartPlayer()
         {
             try
             {
-                Process.Start(_options.Value.ExeLocation);
+                await Task.Run(() => Process.Start(_options.Value.ExeLocation));
             }
             catch (Exception exception)
             {
@@ -107,8 +108,5 @@ namespace PotPlayerAPI.Controllers
             }
             return RedirectToAction("Remote");
         }
-        
-        
-        
     }
 }

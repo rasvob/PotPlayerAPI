@@ -12,6 +12,7 @@ using PotPlayerAPI.ViewModels.VideoFiles;
 
 namespace PotPlayerAPI.Controllers
 {
+    [Route("[controller]/[action]")]
     public class VideoFilesController : Controller
     {
         private readonly ILogger<VideoFilesController> _logger;
@@ -75,11 +76,11 @@ namespace PotPlayerAPI.Controllers
         }
 
         [Route("{videoPath}")]
-        public async Task<IActionResult> PlayVideo(string videoPath)
+        public async Task<IActionResult> PlayVideo([FromRoute]string videoPath)
         {
             try
             {
-                PotPlayerRemote.PlayVideo(_options.Value.ExeLocation, videoPath);
+                await Task.Run(() => PotPlayerRemote.PlayVideo(_options.Value.ExeLocation, videoPath));
                 //PotPlayer has delay when loading file and setting window title by it
                 await Task.Delay(1500);
                 return RedirectToAction("Remote", "Pot");
