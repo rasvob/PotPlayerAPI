@@ -4,25 +4,60 @@
 
 <h2>Video files</h2>
 <hr />
-@await Component.InvokeAsync("VideoTable", new {
-    videoFiles = Model.Movies,
-    tableTitle = "Movies",
-    nameSortParam = ViewBag.NameSortParamMovie,
-    subtitlesSortParam = ViewBag.SubtitlesSortParamMovie,
-    currentSortParam = ViewBag.CurrentSortTvShows,
-    sortBy = "movie",
-    currentSortAlt = ViewBag.CurrentSortMovie
-})
 
-@await Component.InvokeAsync("VideoTable", new {
-    videoFiles = Model.TvShows,
-    tableTitle = "Tv Shows",
-    nameSortParam = ViewBag.NameSortParamTvShows,
-    subtitlesSortParam = ViewBag.SubtitlesSortParamTvShows,
-    currentSortParam = ViewBag.CurrentSortMovie,
-    sortBy = "tv",
-    currentSortAlt = ViewBag.CurrentSortTvShows
-})
+<div id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card">
+        <div class="card-header" role="tab" id="tvShowsCardHeading">
+            <h5 class="mb-0">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#tvShowsCard" aria-expanded="true" aria-controls="tvShowsCard">
+                    Tv Shows
+                </a>
+            </h5>
+        </div>
+
+        <div id="tvShowsCard" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+            <div class="card-block">
+                @await Component.InvokeAsync("VideoTable", new {
+                    videoFiles = Model.TvShows,
+                    tableTitle = "Tv Shows",
+                    nameSortParam = ViewBag.NameSortParamTvShows,
+                    subtitlesSortParam = ViewBag.SubtitlesSortParamTvShows,
+                    currentSortParam = ViewBag.CurrentSortMovie,
+                    sortBy = "tv",
+                    currentSortAlt = ViewBag.CurrentSortTvShows
+                })
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header" role="tab" id="moviesCardHeading">
+            <h5 class="mb-0">
+                <a data-toggle="collapse" data-parent="#accordion" href="#moviesCard" aria-expanded="true" aria-controls="moviesCard">
+                    Movies
+                </a>
+            </h5>
+        </div>
+
+        <div id="moviesCard" class="collapse" role="tabpanel">
+            <div class="card-block">
+                @await Component.InvokeAsync("VideoTable", new {
+                    videoFiles = Model.Movies,
+                    tableTitle = "Movies",
+                    nameSortParam = ViewBag.NameSortParamMovie,
+                    subtitlesSortParam = ViewBag.SubtitlesSortParamMovie,
+                    currentSortParam = ViewBag.CurrentSortTvShows,
+                    sortBy = "movie",
+                    currentSortAlt = ViewBag.CurrentSortMovie
+                })
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 
 
